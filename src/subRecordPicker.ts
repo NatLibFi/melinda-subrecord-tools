@@ -2,7 +2,7 @@ import {default as createSruClient} from '@natlibfi/sru-client';
 import {MARCXML} from '@natlibfi/marc-record-serializers';
 import type {MarcRecord} from '@natlibfi/marc-record';
 import createDebugLogger from 'debug';
-import ApiError from './error.ts';
+import {Error as ApiError} from '@natlibfi/melinda-commons';
 
 const componentIndex = 'melinda.partsofhost';
 const monoHostComponentIndex = 'melinda.partsofmonohost';
@@ -11,19 +11,16 @@ export interface SubrecordAmount {
   amount: number;
 }
 
-export interface SomeSubrecords extends SubrecordAmount {
-  nextRecordOffset: number;
+export interface Subrecords extends SubrecordAmount {
   records: MarcRecord[];
-}
-
-export interface AllSubrecords extends SubrecordAmount {
-  records: MarcRecord[];
+  /** Present from readSomeSubrecords (paging); absent from readAllSubrecords. */
+  nextRecordOffset?: number;
 }
 
 export interface SubrecordPicker {
   readSubrecordAmount(recordId: string): Promise<SubrecordAmount>;
-  readSomeSubrecords(recordId: string, offset?: number): Promise<SomeSubrecords>;
-  readAllSubrecords(recordId: string): Promise<AllSubrecords>;
+  readSomeSubrecords(recordId: string, offset?: number): Promise<Subrecords>;
+  readAllSubrecords(recordId: string): Promise<Subrecords>;
 }
 
 export function createSubrecordPicker(sruUrl?: string, retrieveAll = false, monoHostComponentsOnly = false): SubrecordPicker {
@@ -55,7 +52,7 @@ export function createSubrecordPicker(sruUrl?: string, retrieveAll = false, mono
     });
   }
 
-  function readSomeSubrecords(recordId: string, offset = 1): Promise<SomeSubrecords> {
+  function readSomeSubrecords(recordId: string, offset = 1): Promise<Subrecords> {
     // retrieveAll: true makes the SRU client follow every page internally, so
     // the 'end' event no longer carries a nextRecordOffset and this method
     // could not fulfill its single-page contract. Fail loudly instead.
@@ -86,7 +83,7 @@ export function createSubrecordPicker(sruUrl?: string, retrieveAll = false, mono
     });
   }
 
-  function readAllSubrecords(recordId: string): Promise<AllSubrecords> {
+  function readAllSubrecords(recordId: string): Promise<Subrecords> {
     debug(`Picking subrecords for ${recordId}`);
     return new Promise((resolve, reject) => {
       const promises: Promise<MarcRecord>[] = [];

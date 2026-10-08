@@ -4,7 +4,7 @@ import {READERS} from '@natlibfi/fixura';
 import generateTests from '@natlibfi/fixugen-http-client';
 import createDebugLogger from 'debug';
 import {createSubrecordPicker} from './subRecordPicker.ts';
-import ApiError from './error.ts';
+import {Error as ApiError} from '@natlibfi/melinda-commons';
 
 const debug = createDebugLogger('@natlibfi/melinda-subrecord-tools:subRecordPicker:test');
 
