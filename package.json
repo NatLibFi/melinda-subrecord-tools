@@ -1,0 +1,52 @@
+{
+	"name": "@natlibfi/melinda-subrecord-tools",
+	"description": "SRU-based reader for Melinda parts-of-host MARC subrecords",
+	"author": {
+		"name": "The National Library of Finland"
+	},
+	"keywords": [],
+	"homepage": "https://www.npmjs.com/package/@natlibfi/melinda-subrecord-tools",
+	"bugs": {
+		"url": "https://github.com/natlibfi/melinda-subrecord-tools/issues"
+	},
+	"repository": {
+		"url": "https://github.com/NatLibFi/melinda-subrecord-tools"
+	},
+	"license": "MIT",
+	"version": "1.0.0",
+	"main": "./dist/index.js",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"default": "./dist/index.js"
+	},
+	"type": "module",
+	"engines": {
+		"node": ">=24"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"prepare": "npm run build",
+		"build": "tsc",
+		"lint": "eslint ./src",
+		"lint:dev": "eslint --fix ./src",
+		"test:base": "node --test --experimental-test-coverage --test-reporter=spec './src/**/*.test.ts'",
+		"test": "npm run lint && npm run test:base"
+	},
+	"dependencies": {
+		"@natlibfi/marc-record": "^11.0.3",
+		"@natlibfi/marc-record-serializers": "^11.0.5",
+		"@natlibfi/sru-client": "^7.0.6",
+		"debug": "^4.4.3"
+	},
+	"devDependencies": {
+		"@natlibfi/fixugen-http-client": "^4.0.3",
+		"@natlibfi/fixura": "^5.0.0",
+		"@types/node": "^25.6.0",
+		"eslint": "^10.10.0",
+		"jiti": "^2.6.1",
+		"typescript": "^6.0.2",
+		"typescript-eslint": "^8.71.0"
+	}
+}
