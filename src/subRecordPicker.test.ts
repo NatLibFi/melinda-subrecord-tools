@@ -6,7 +6,7 @@ import createDebugLogger from 'debug';
 import {createSubrecordPicker} from './subRecordPicker.ts';
 import ApiError from './error.ts';
 
-const debug = createDebugLogger('@natlibfi/melinda-commons:subRecordPicker:test');
+const debug = createDebugLogger('@natlibfi/melinda-subrecord-tools:subRecordPicker:test');
 
 describe('subRecordPicker', () => {
   const sruUrl = 'https://sru';

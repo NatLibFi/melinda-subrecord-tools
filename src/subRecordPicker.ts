@@ -28,7 +28,7 @@ export interface SubrecordPicker {
 
 export function createSubrecordPicker(sruUrl?: string, retrieveAll = false, monoHostComponentsOnly = false): SubrecordPicker {
 
-  const debug = createDebugLogger('@natlibfi/melinda-commons:subRecordPicker');
+  const debug = createDebugLogger('@natlibfi/melinda-subrecord-tools:subRecordPicker');
 
   debug(`SRU client url: ${sruUrl}`);
   if (sruUrl === undefined) {
