@@ -25,7 +25,7 @@ Returns a `SubrecordPicker` with the methods below.
 
 ### `readSubrecordAmount(recordId) → Promise<SubrecordAmount>`
 
-Returns the amount of subrecords for the host record.
+Returns the amount of subrecords for the host record:
 
 ```ts
 interface SubrecordAmount {
@@ -33,30 +33,25 @@ interface SubrecordAmount {
 }
 ```
 
-### `readSomeSubrecords(recordId, offset?) → Promise<SomeSubrecords>`
+### `readSomeSubrecords(recordId, offset?) → Promise<Subrecords>`
 
 Returns a single page of subrecords, starting at `offset` (1-based, default `1`).
 
-```ts
-interface SomeSubrecords {
-  amount: number;             // total amount of subrecords
-  nextRecordOffset: number;   // offset of the next page (0 if no more)
-  records: MarcRecord[];
-}
-```
-
-### `readAllSubrecords(recordId) → Promise<AllSubrecords>`
+### `readAllSubrecords(recordId) → Promise<Subrecords>`
 
 Returns all subrecords of the host record (follows all pages).
 
+Both methods return:
+
 ```ts
-interface AllSubrecords {
-  amount: number;
+interface Subrecords extends SubrecordAmount {
   records: MarcRecord[];
+  /** Present from readSomeSubrecords (paging); absent from readAllSubrecords. */
+  nextRecordOffset?: number; // offset of the next page (0 if no more)
 }
 ```
 
-Errors are `Error` instances (exported from the package) with `status`,
+Errors are `@natlibfi/melinda-commons` `Error` instances with `status`,
 `payload` and `params` properties.
 
 ## Example
