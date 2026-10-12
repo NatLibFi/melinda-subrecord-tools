@@ -71,6 +71,8 @@ const {records, nextRecordOffset} = await picker.readSomeSubrecords('12345', 1);
 const all = await picker.readAllSubrecords('12345');
 ```
 
-## License
+## License and copyright
 
-MIT
+Copyright (c) 2026 **University Of Helsinki (The National Library Of Finland)**
+
+This project's source code is licensed under the terms of **MIT** or any later version.
